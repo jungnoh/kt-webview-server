@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>FCM Test Application</h1>
+  
+  <% if (me) { %>
+    <h2>Welcome, <%= me %></h2>
+    <button onclick="document.location='/logout'">Logout</button>
+  <% } else { %>
+    <h2>Welcome</h2>
+    <button onclick="document.location='/login'">Login</button>
+  <% } %>
+  
+  <h2>Send a message</h2>
+  <% if (me) { %>
+    <% if (noUser) { %>
+      <span>That user is not registered.</span>
+    <% } %>
+    <form method="POST" action="/message">
+      <input name="id" placeholder="Recipient" />
+      <br />
+      <input name="content" placeholder="Content" />
+      <br />
+      <input name="url" placeholder="URL" />
+      <br />
+      <input type="submit" value="Send">
+    </form>
+  <% } else { %>
+    <span>Log in to continue.</span>
+  <% } %>
+</body>
+</html>
