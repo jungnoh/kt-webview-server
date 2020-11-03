@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const fcmStore = require('./store');
 
 const app = express();
-const port = 3000;
+const port = process.env.NODE_PORT || 3000;
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(morgan('tiny'));
 
 firebase.initializeApp({
-  credential: firebase.credential.applicationDefault(),
+  credential: firebase.credential.cert(JSON.parse(process.env.FCM_CREDENTIALS)),
   databaseURL: `https://${process.env.FCM_DB}.firebaseio.com`
 });
 
@@ -95,6 +95,5 @@ app.post('/message', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`https://${process.env.FCM_DB}.firebaseio.com`);
-  console.log(`LIstening at :${port}`);
+  console.log(`Listening at :${port}`);
 });
